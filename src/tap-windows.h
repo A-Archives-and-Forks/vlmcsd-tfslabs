@@ -31,6 +31,10 @@
  * =============
  */
 
+#ifdef   _WIN32
+#include <winioctl.h>
+#endif // _WIN32
+
 #define TAP_WIN_CONTROL_CODE(request,method) \
   CTL_CODE (FILE_DEVICE_UNKNOWN, request, method, FILE_ANY_ACCESS)
 
@@ -73,5 +77,3 @@
 #define TAP_WIN_SUFFIX    ".tap"
 
 #endif // __TAP_WIN_H
-
-

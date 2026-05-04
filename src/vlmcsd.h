@@ -13,6 +13,11 @@ extern char *fn_log;
 
 #include "types.h"
 
+#if _MSC_VER
+#include <windows.h>
+#include <shellapi.h>
+#endif
+
 //int main(int argc, CARGV);
 extern void cleanup();
 
@@ -57,6 +62,7 @@ int server_main(int argc, CARGV argv);
 #define INI_PARAM_VPN 29
 #define INI_PARAM_EXIT_LEVEL 30
 #define INI_PARAM_PRIVACY_MODE 31
+#define INT_PARAM_COUNTING_REQ 32
 
 #define INI_FILE_PASS_1 1
 #define INI_FILE_PASS_2 2

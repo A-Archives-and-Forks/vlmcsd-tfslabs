@@ -696,8 +696,9 @@ static void displayResponse(const RESPONSE_RESULT result, const REQUEST* request
 			"\n\nResponse from KMS server\n========================\n\n"
 			"Size of KMS Response            : %u (0x%x)\n", result.effectiveResponseSize, result.effectiveResponseSize
 		);
-
+#ifndef NO_LOG
 		logResponseVerbose(ePID, hwid, response, &printf);
+#endif // NO_LOG
 		printf("\n");
 	}
 #	endif // NO_VERBOSE_LOG
@@ -1387,7 +1388,9 @@ static void CreateRequestBase(REQUEST *Request)
 	if (verbose)
 	{
 		printf("\nRequest Parameters\n==================\n\n");
+#ifndef NO_LOG
 		logRequestVerbose(Request, &printf);
+#endif // NO_LOG
 		printf("\n");
 	}
 #	endif // NO_VERBOSE_LOG
@@ -1398,12 +1401,12 @@ int __stdcall WinStartUp(void)
 {
 	WCHAR **szArgList;
 	int argc;
+	
 	szArgList = CommandLineToArgvW(GetCommandLineW(), &argc);
 
-	int i;
 	char **argv = (char**)vlmcsd_malloc(sizeof(char*)*argc);
 
-	for (i = 0; i < argc; i++)
+	for (int i = 0; i < argc; i++)
 	{
 		int size = WideCharToMultiByte(CP_UTF8, 0, szArgList[i], -1, argv[i], 0, NULL, NULL);
 		argv[i] = (char*)vlmcsd_malloc(size);
